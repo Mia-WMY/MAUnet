@@ -1,0 +1,48 @@
+import argparse
+from modules.process import read_fake_data_nangate45
+import torch
+from modules.normalization import  getxStat,getyStat,get_norm
+from modules.train import train_net
+from modules.multiscale import MSU_attNet
+import random
+import numpy as np
+def setup_seed(seed):
+    seed=int(seed)
+    torch.manual_seed(seed)
+    torch.cuda.manual_seed(seed)
+    np.random.seed(seed)
+    random.seed(seed)
+    torch.backends.cudnn.deterministic=True
+    torch.backends.cudnn.benchmark=False
+
+parser=argparse.ArgumentParser(description="a simple program for IR drop")
+parser.add_argument("--normal",type=bool,required=True,help="normalize y")
+parser.add_argument("--epoch",type=int,required=True,help="epoch")
+parser.add_argument("--lr",type=float,required=True,help="learning rate")
+parser.add_argument("--path",type=str,required=True,help="model path")
+parser.add_argument("--seed",type=str,required=True,help="random seed")
+args=parser.parse_args()
+setup_seed(args.seed)
+# the path of nangate45 dataset
+path='/home/wangmingyue/nangate45'
+add_pth = '/home/wangmingyue/date/nangate45_ncsv'
+x_data,y_data=read_fake_data_nangate45(path,add_pth)
+print(len(x_data))
+# using cuda if it is available
+print(torch.cuda.is_available())
+device=torch.device('cuda' if torch.cuda.is_available() else 'cpu')
+print(device)
+#normalize
+_,xmin,xmax=getxStat(x_data,6)
+_,ymin,ymax=getyStat(y_data)
+trans_x = get_norm(x_data, 6, xmin, xmax)
+trans_y = get_norm(y_data, 1, ymin, ymax)
+net=MSU_attNet(img_ch=6,output_ch=1,xmax=xmax,xmin=xmin,ymax=ymax,ymin=ymin)
+net.to(device=device)
+total_params=sum(p.numel() for p in net.parameters())
+print(f"tparams:{total_params}")
+# training
+model = train_net(net, device, trans_x, y_data, args.epoch, args.lr)
+# save
+model_pth='pths/{}.pth'.format(args.path)
+torch.save({'model_state_dict': model.state_dict(), 'xmax': xmax, 'xmin': xmin, 'ymax': ymax, 'ymin': ymin}, model_pth)
