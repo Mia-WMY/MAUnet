@@ -2,9 +2,6 @@
 
 ## Introduction
 
-
-## Requirements
-
 🤔🤔🤔
 
 This is the code implementation of the paper “MAUnet: Multiscale Attention U-Net for Effective IR Drop Prediction”
@@ -27,6 +24,15 @@ Among them, **MAUnet** is the main implementation of the model proposed in the p
 **baseline1** and **baseline1_exf** are also the experimental codes of the corresponding baseline models.
 
 **genarate_feature** is the relevant code for extracting features from the netlist file .sp, and **plot_fig** is the drawing program related to the paper.
+
+## Requirements
+
+🥸🥸🥸
+
+This project bases on Python 3.8.13.
+
+More information about packages can be found in **requirements.txt**.
+
 
 
 ## Usage
