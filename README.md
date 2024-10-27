@@ -1,5 +1,10 @@
 # MAUnet
 
+## Data Source
+
+The three benchmark we used in this work originates from https://github.com/UMN-EDA/BeGAN-benchmarks/tree/master.
+The data include information on three different technology nodes: 7 nm, 45 nm, and 135 nm. Additionally, these data are divided into two parts: real data and fake data. The real data is generated using circuit information from the open-source OpenROAD project, while the fake data is generated through GAN (Generative Adversarial Network) networks.
+
 ## Introduction
 
 🤔🤔🤔
