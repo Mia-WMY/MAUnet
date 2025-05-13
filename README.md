@@ -81,4 +81,4 @@ By the way , you can execuate the following command to finetune trained model:
 
 🥳🥳🥳
 
-The paper is published on xxxx
+The paper is published on \href{https://dl.acm.org/doi/proceedings/10.1145/3649329}{DAC '24: Proceedings of the 61st ACM/IEEE Design Automation Conference}
