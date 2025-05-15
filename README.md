@@ -2,7 +2,9 @@
 
 ## Correction
 
-<font color="red">In Figure 2 of our published paper, due to an oversight, there were inaccuracies in the network architecture. We have now updated the figure as shown below.</font>
+```diff
+In Figure 2 of our published paper, due to an oversight, there were inaccuracies in the network architecture. We have now updated the figure as shown below.
+```
 ![](cor_fig2.png)
 *"This correction does not affect the core conclusions of the study. We sincerely apologize for any confusion this may have caused."*
 
